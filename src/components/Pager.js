@@ -1,7 +1,8 @@
 import React from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
-const Pager = ({ count, index, history }) => {
+const Pager = ({ count, index }) => {
   let currentPage = index + 1;
   const lastPage = Math.ceil(count / 50);
 
@@ -12,39 +13,31 @@ const Pager = ({ count, index, history }) => {
       </p>
 
       <ButtonGroup>
-        <Button
-          variant="info"
-          disabled={currentPage === 1}
-          onClick={() => history.push('/users')}
-        >
-          First
-        </Button>
+        <LinkContainer to="/users/0">
+          <Button variant="info" disabled={currentPage === 1}>
+            First
+          </Button>
+        </LinkContainer>
 
-        <Button
-          variant="info"
-          disabled={currentPage === 1}
-          onClick={() => history.push(`/users/${index - 1}`)}
-        >
-          Prev
-        </Button>
+        <LinkContainer to={`/users/${index - 1}`}>
+          <Button variant="info" disabled={currentPage === 1}>
+            Prev
+          </Button>
+        </LinkContainer>
 
         <Button variant="primary">{currentPage}</Button>
 
-        <Button
-          variant="info"
-          disabled={currentPage===lastPage}
-          onClick={() => history.push(`/users/${index + 1}`)}
-        >
-          Next
-        </Button>
+        <LinkContainer to={`/users/${index + 1}`}>
+          <Button variant="info" disabled={currentPage === lastPage}>
+            Next
+          </Button>
+        </LinkContainer>
 
-        <Button
-          variant="info"
-          disabled={currentPage===lastPage}
-          onClick={() => history.push(`/users/${lastPage - 1}`)}
-        >
-          Last
-        </Button>
+        <LinkContainer to={`/users/${lastPage - 1}`}>
+          <Button variant="info" disabled={currentPage === lastPage}>
+            Last
+          </Button>
+        </LinkContainer>
       </ButtonGroup>
     </div>
   );

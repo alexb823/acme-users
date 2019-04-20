@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 
 const NavTabs = ({ location }) => {
-  const { pathname } = location;
+  const pathStart = location.pathname.split('/')[1];
   return (
     <Nav variant="tabs" className="mb-4">
       <Nav.Item>
         <Nav.Link
           as={Link}
           to="/"
-          className={`${pathname === '/' ? 'active' : ''}`}
+          className={`${pathStart === '' ? 'active' : ''}`}
         >
           Home
         </Nav.Link>
@@ -19,7 +19,7 @@ const NavTabs = ({ location }) => {
         <Nav.Link
           as={Link}
           to="/users"
-          className={`${pathname === '/users' ? 'active' : ''}`}
+          className={`${pathStart === 'users' ? 'active' : ''}`}
         >
           Users
         </Nav.Link>

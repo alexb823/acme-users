@@ -4,8 +4,8 @@ import { Table } from 'react-bootstrap';
 import Pager from './Pager';
 
 class Users extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       count: 0,
       users: [],
@@ -21,7 +21,7 @@ class Users extends Component {
   };
 
   componentDidMount = () => {
-    this.getUsers();
+    this.getUsers(this.props.match.params.index);
   };
 
   componentDidUpdate(prevProps) {
@@ -34,12 +34,11 @@ class Users extends Component {
 
   render() {
     const { count, users } = this.state;
-    const {history} = this.props;
     const index = this.props.match.params.index*1 || 0;
 
     return (
       <Fragment>
-        <Pager count={count} index={index} history={history} />
+        <Pager count={count} index={index} />
         <Table striped responsive="md">
           <thead>
             <tr>
