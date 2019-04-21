@@ -15,19 +15,11 @@ class Users extends Component {
   }
 
   componentDidMount = () => {
-    if (this.props.match.params.searchTerm) {
-      this.setState({ searchTerm: this.props.match.params.searchTerm });
-      this.getResults();
-      console.log(this.props.match);
-    } else {
-      this.getUsers();
-      console.log(this.props.match);
-    }
+    if (this.props.match.params.searchTerm) this.getResults();
+    else this.getUsers();
   };
 
   componentDidUpdate(prevProps) {
-    console.log(this.props);
-    console.log(prevProps);
     const { index, searchTerm } = this.props.match.params;
     if (index !== prevProps.match.params.index && !searchTerm) this.getUsers();
     if (index !== prevProps.match.params.index && searchTerm) this.getResults();
@@ -50,7 +42,7 @@ class Users extends Component {
         `https://acme-users-api.herokuapp.com/api/users/search/${searchTerm}/${index}`
       )
       .then(response => response.data)
-      .then(({ count, users }) => this.setState({ count, users }))
+      .then(({ count, users }) => this.setState({ count, users, searchTerm }))
       .catch(err => console.error(err));
   };
 
@@ -66,12 +58,13 @@ class Users extends Component {
   render() {
     const { count, users, searchTerm } = this.state;
     const index = this.props.match.params.index * 1 || 0;
-
+    const currentSearch = this.props.match.params.searchTerm;
     return (
       <Fragment>
         <Pager count={count} searchTerm={searchTerm} index={index} />
         <Search
           searchTerm={searchTerm}
+          currentSearch={currentSearch}
           handleChange={this.handleChange}
           onClear={this.onClear}
         />
