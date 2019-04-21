@@ -4,7 +4,6 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const Search = ({ searchTerm, currentSearch, handleChange, onClear }) => {
   const disableSearch = !searchTerm || searchTerm === currentSearch;
-  const disableClear = !currentSearch;
   return (
     <InputGroup className="mb-4">
       <FormControl
@@ -20,7 +19,7 @@ const Search = ({ searchTerm, currentSearch, handleChange, onClear }) => {
         </LinkContainer>
 
         <LinkContainer to="/users">
-          <Button variant="info" disabled={disableClear} onClick={onClear}>
+          <Button variant="info" disabled={!currentSearch} onClick={onClear}>
             Clear
           </Button>
         </LinkContainer>

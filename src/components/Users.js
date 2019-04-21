@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Table } from 'react-bootstrap';
 import Pager from './Pager';
 import Search from './Search';
+import Hilite from './Hilite'
 
 class Users extends Component {
   constructor() {
@@ -81,11 +82,11 @@ class Users extends Component {
           <tbody>
             {users.map(user => (
               <tr key={user.id}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.middleName}</td>
-                <td>{user.email}</td>
-                <td>{user.title}</td>
+                <td><Hilite text={user.firstName} hilite={currentSearch}/></td>
+                <td><Hilite text={user.lastName} hilite={currentSearch}/></td>
+                <td><Hilite text={user.middleName} hilite={currentSearch}/></td>
+                <td><Hilite text={user.email} hilite={currentSearch}/></td>
+                <td><Hilite text={user.title} hilite={currentSearch}/></td>
               </tr>
             ))}
           </tbody>
