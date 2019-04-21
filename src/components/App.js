@@ -13,6 +13,7 @@ const App =() => {
           <Route component={NavTabs} />
           <Route exact path="/" component={Home} />
           <Route exact path="/users/:index?" component={Users} />
+          <Route exact path="/users/search/:searchTerm/:index?" component={Users} />
         </Container>
       </Router>
     );
