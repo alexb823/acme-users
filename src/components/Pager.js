@@ -2,9 +2,11 @@ import React from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const Pager = ({ count, index }) => {
+const Pager = ({ count, searchTerm, index }) => {
   let currentPage = index + 1;
   const lastPage = Math.ceil(count / 50);
+  let searchUrl = '';
+  if (searchTerm) searchUrl = `search/${searchTerm}/`;
 
   return (
     <div className="mb-3">
@@ -13,13 +15,13 @@ const Pager = ({ count, index }) => {
       </p>
 
       <ButtonGroup>
-        <LinkContainer to="/users/0">
+        <LinkContainer to={`/users/${searchUrl}0`}>
           <Button variant="info" disabled={currentPage === 1}>
             First
           </Button>
         </LinkContainer>
 
-        <LinkContainer to={`/users/${index - 1}`}>
+        <LinkContainer to={`/users/${searchUrl}${index - 1}`}>
           <Button variant="info" disabled={currentPage === 1}>
             Prev
           </Button>
@@ -27,7 +29,7 @@ const Pager = ({ count, index }) => {
 
         <Button variant="primary">{currentPage}</Button>
 
-        <LinkContainer to={`/users/${index + 1}`}>
+        <LinkContainer to={`/users/${searchUrl}${index + 1}`}>
           <Button variant="info" disabled={currentPage === lastPage}>
             Next
           </Button>

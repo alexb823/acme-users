@@ -15,9 +15,8 @@ class Users extends Component {
   }
 
   componentDidMount = () => {
-    const { searchTerm } = this.props.match.params;
-    if (searchTerm) {
-      this.setState({ searchTerm });
+    if (this.props.match.params.searchTerm) {
+      this.setState({ searchTerm: this.props.match.params.searchTerm });
       this.getResults();
       console.log(this.props.match);
     } else {
@@ -27,11 +26,11 @@ class Users extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    // console.log(this.props);
-    // console.log(prevProps);
+    console.log(this.props);
+    console.log(prevProps);
     const { index, searchTerm } = this.props.match.params;
-    if (index !== prevProps.match.params.index) this.getUsers();
-    if (searchTerm !== prevProps.match.params.searchTerm) this.getResults();
+    if (index !== prevProps.match.params.index && !searchTerm) this.getUsers();
+    if (index !== prevProps.match.params.index && searchTerm) this.getResults();
   }
 
   getUsers = () => {
@@ -70,7 +69,7 @@ class Users extends Component {
 
     return (
       <Fragment>
-        <Pager count={count} index={index} />
+        <Pager count={count} searchTerm={searchTerm} index={index} />
         <Search
           searchTerm={searchTerm}
           handleChange={this.handleChange}
