@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Table } from 'react-bootstrap';
 import Pager from './Pager';
 import Search from './Search';
-import Hilite from './Hilite'
+import Hilite from './Hilite';
 
 class Users extends Component {
   constructor() {
@@ -22,8 +22,11 @@ class Users extends Component {
 
   componentDidUpdate(prevProps) {
     const { index, searchTerm } = this.props.match.params;
-    if (index !== prevProps.match.params.index && !searchTerm) this.getUsers();
-    if (index !== prevProps.match.params.index && searchTerm) this.getResults();
+    const prevIndex = prevProps.match.params.index;
+    const prevSearchTerm = prevProps.match.params.searchTerm;
+    if (index !== prevIndex && !searchTerm) this.getUsers();
+    if ((searchTerm && index !== prevIndex) || searchTerm !== prevSearchTerm)
+      this.getResults();
   }
 
   getUsers = () => {
@@ -82,11 +85,21 @@ class Users extends Component {
           <tbody>
             {users.map(user => (
               <tr key={user.id}>
-                <td><Hilite text={user.firstName} hilite={currentSearch}/></td>
-                <td><Hilite text={user.lastName} hilite={currentSearch}/></td>
-                <td><Hilite text={user.middleName} hilite={currentSearch}/></td>
-                <td><Hilite text={user.email} hilite={currentSearch}/></td>
-                <td><Hilite text={user.title} hilite={currentSearch}/></td>
+                <td>
+                  <Hilite text={user.firstName} hilite={currentSearch} />
+                </td>
+                <td>
+                  <Hilite text={user.lastName} hilite={currentSearch} />
+                </td>
+                <td>
+                  <Hilite text={user.middleName} hilite={currentSearch} />
+                </td>
+                <td>
+                  <Hilite text={user.email} hilite={currentSearch} />
+                </td>
+                <td>
+                  <Hilite text={user.title} hilite={currentSearch} />
+                </td>
               </tr>
             ))}
           </tbody>
