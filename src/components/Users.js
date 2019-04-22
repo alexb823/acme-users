@@ -15,7 +15,7 @@ class Users extends Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     if (this.props.match.params.searchTerm) this.getResults();
     else this.getUsers();
   };
